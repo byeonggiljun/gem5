@@ -1,0 +1,17 @@
+M5_UTIL:=${CURDIR}/../../../../util/m5
+M5_INCLUDE:=${CURDIR}/../../../../include/
+
+all: aes
+
+# Direct compilation for x86 host
+aes: aes.c
+	gcc -DM5 \
+		-I ../../../include/ \
+		-o aes \
+		-static -O2 \
+		../../../util/m5/src/abi/x86/m5op.S \
+		aes.c \
+		-lssl -lcrypto
+
+clean:
+	rm -f aes
